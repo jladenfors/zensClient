@@ -1,0 +1,4 @@
+zensClient
+==========
+
+Yeoman angular application
