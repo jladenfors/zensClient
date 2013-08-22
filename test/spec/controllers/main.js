@@ -1,22 +1,21 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: ZensGraf', function () {
 
   // load the controller's module
-  beforeEach(module('zensClientApp'));
+  beforeEach(module('zens'));
 
-  var MainCtrl,
-    scope;
+  var ZensGraf, scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+      ZensGraf = $controller('ZensGraf', {
       $scope: scope
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should attach a list of awesomeThings to the scope', function () {      
+    expect(scope.parameters.sensorId).toBe("graphDiv");
   });
 });

@@ -1,6 +1,11 @@
 /**
  * Sensor reader
  *
+ * electric endpoint : getEl
+ * electric endpoint : getTemp
+ * 
+ * format : {res: [{date: 123414, data: asdfds}, {date: 123414, data: asdfds}]}
+ * 
  * 2012, Jonas
  */
 function ZensReader(util,  $http, plotter) {
