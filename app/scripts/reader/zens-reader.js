@@ -17,7 +17,7 @@ function ZensReader(util,  $http, plotter) {
     var sensor_e1 = function(domId) {
 
         if(supports_html5_storage){
-            $http.get("/getEl").success(function(data){
+            $http.get("http://localhost:8080/restfulZens/eletric").success(function(data){
                 plotElectric(domId, data);
             });
         }
