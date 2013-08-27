@@ -1,5 +1,6 @@
 <div class="span9">
+    <p>{{parameters.sensorName}}</p>
     <!-- declare any number of graphs per sensor -->
-    <zensgraf graf-id="{{parameters.sensorId}}Day"/>
-    <zensgraf graf-id="{{parameters.sensorId}}Month"/>
+    <zensgraf graf-id="{{parameters.sensorId}}Day" popluate-sensor=sensors.switcher(sensor)></zensgraf>
+    <zensgraf graf-id="{{parameters.sensorId}}Month"></zensgraf>
 </div>

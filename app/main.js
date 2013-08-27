@@ -5,8 +5,8 @@ requirejs.config({
         'scripts/reader/zens-util': [],
         'scripts/reader/zens-reader': ['scripts/reader/zens-util', 'scripts/reader/zens-flot'],
         'scripts/controllers/zens-module': ['scripts/controllers/zens-controller', 'scripts/reader/zens-reader'],                
-        'scripts/controllers/zens-controller': ['scripts/app'],
-        'scripts/app': ['bower_components/angular/angular.min']
+        'scripts/controllers/zens-controller': ['scripts/init'],        
+        'scripts/init': [ 'bower_components/angular/angular.min']
     }
 });
 
@@ -15,6 +15,7 @@ require(['scripts/controllers/zens-module', 'scripts/reader/zens-reader'],
         // Late bootstrap for require to work
         angular.bootstrap(document, ['zens']);
         
+        <!-- Here the dom and bo-->
         $(function() {
             $(".nav li").click(function() {
                 $(".nav li").removeClass('active');

@@ -27,7 +27,13 @@ app.directive('zenshead', function() {
             restrict: 'E',
             transclude: true,
             scope: {
+                sensorName : '@',
+                popluateSensor : '&?',
                 grafId: '@'
+            },
+            link: function(scope, element, attrs) {
+                scope.popluateSensor({sensor: 'e1'});
+
             },
             templateUrl: '/views/partial/graf.html',
             replace: true

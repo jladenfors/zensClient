@@ -8,14 +8,13 @@
  * 
  * 2012, Jonas
  */
-function ZensReader(util,  $http, plotter) {
+function ZensReader(util,  $http, plotter, scope) {
 
     /**
      * Popluate sensor e1
      * @param domId the dom to plot to, remember that the dom needs to be finished before plotting.
      */
-    var sensor_e1 = function(domId) {
-
+    var sensor_e1 = function(domId) {        
         if(supports_html5_storage){
             $http.get("http://localhost:8080/restfulZens/eletric").success(function(data){
                 plotElectric(domId, data);
@@ -38,7 +37,7 @@ function ZensReader(util,  $http, plotter) {
     function plotElectric(domId, data){
         // Plot graf per day
         plotter.plot(
-            [util.calculateDelta(parseDataPerHour(data.res, util.elHandle))],
+            [util.calculateDelta(parseDataPerHour(data, util.elHandle))],
             $(util.idCreator(domId, "Day")),
             ["Kw/h"],
             [1, "hour"],
@@ -51,7 +50,7 @@ function ZensReader(util,  $http, plotter) {
 
         // Plot graf per month
         plotter.plot(
-            [util.calculateDayDelta(parseDataPerDay(data.res, util.elHandle))],
+            [util.calculateDayDelta(parseDataPerDay(data, util.elHandle))],
             $(util.idCreator(domId, "Month")),
             ["Kw/h"],
             [1, "day"],
@@ -125,7 +124,7 @@ function ZensReader(util,  $http, plotter) {
                 var json = reply;
                 var eventDate = util.zDate(json);
                 if (new Date().getDate() == eventDate.getDate()){
-                    hourHash[eventDate.getTime()] = dataHandle(json.data);
+                    hourHash[eventDate.getTime()] = dataHandle(json.value);
                 }
             }
         );
@@ -139,7 +138,7 @@ function ZensReader(util,  $http, plotter) {
                 var json = reply;
                 var eventDate = util.zDate(json);
                 if (new Date().getMonth() == eventDate.getMonth()) {
-                    dayHash[eventDate.getTime()] = dataHandle(json.data);
+                    dayHash[eventDate.getTime()] = dataHandle(json.value);
                 }
             }
         );
