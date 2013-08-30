@@ -8,7 +8,7 @@
  * 
  * 2012, Jonas
  */
-function ZensReader(util,  $http, plotter, scope) {
+function ZensReader(util,  $http, plotter, backendUrl) {
 
     /**
      * Popluate sensor e1
@@ -16,14 +16,14 @@ function ZensReader(util,  $http, plotter, scope) {
      */
     var sensor_e1 = function(domId) {        
         if(supports_html5_storage){
-            $http.get("http://localhost:8080/restfulZens/eletric").success(function(data){
+            $http.get(backendUrl + "e1").success(function(data){
                 plotElectric(domId, data);
             });
         }
         else {
             if (localStorage.getItem("elData") == undefined)
             {
-                $http.get("/getEl").success(function(data){
+                $http.get(backendUrl + "e1").success(function(data){
                     localStorage.setItem("elData", JSON.stringify(data));
                     plotElectric(domId, data);
                 });
@@ -75,14 +75,14 @@ function ZensReader(util,  $http, plotter, scope) {
     var sensor_t1 = function(domId) {
 
         if(supports_html5_storage){
-            $http.get("/getTemp").success(function(data){
+            $http.get(backendUrl + "t1").success(function(data){
                 plotTemperatureData(domId, data);
             });
         }
         else {
             if (localStorage.getItem("t1Data") == undefined)
             {
-                $http.get("/getTemp").success(function(data){
+                $http.get(backendUrl + "t1").success(function(data){
                     localStorage.setItem("t1Data", JSON.stringify(data));
                     plotTemperatureData(domId, data);
                 });
@@ -145,7 +145,7 @@ function ZensReader(util,  $http, plotter, scope) {
         return dayHash;
     };
     
-    return {
+    return {        
         s_e1: sensor_e1,
         s_t1: sensor_t1
     }

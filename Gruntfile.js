@@ -40,7 +40,8 @@ module.exports = function (grunt) {
                 wrap: '"use strict";\n\n var app = <%= __ngModule %>',
                 name: 'zens',
                 constants: {
-                    ENV: 'development'
+                    ENV: 'development',
+                    URL: 'http://localhost:8080/restfulZens/zens/'
                 }
             }],
             production: [{
@@ -48,7 +49,8 @@ module.exports = function (grunt) {
                 wrap: '"use strict";\n\n var app = <%= __ngModule %>',
                 name: 'zens',
                 constants: {
-                    ENV: 'production'
+                    ENV: 'production',
+                    URL: 'http://localhost:8080/restfulZens/zens/'
                 }
             }]
         },
@@ -135,7 +137,7 @@ module.exports = function (grunt) {
                 jshintignore: ".jshintignore"
             },
             all: [
-                'Gruntfile.js',
+                //'Gruntfile.js',
                 '<%= yeoman.app %>/scripts/{,*/}*.js'
             ]
         },

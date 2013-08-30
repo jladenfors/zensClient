@@ -1,5 +1,7 @@
-function ZensUtil() {
+'use strict';
 
+function ZensUtil()
+{
     /**
      * Calculate price of day intraday.
      * @param price
@@ -8,9 +10,10 @@ function ZensUtil() {
      */
     var priceCalculus = function(price, elDelta){
         var cost = 0;
-        jQuery.each(elDelta, function(kw){
-            if (!isNaN(elDelta[kw][1]))
+        angular.forEach(elDelta, function(kw){
+            if (!isNaN(elDelta[kw][1])) {
                 cost += price * elDelta[kw][1];
+            }
         });
         return cost;
     };
@@ -24,11 +27,11 @@ function ZensUtil() {
         var keyValOld = sortedKeys[0];
         var oldZd = new Date();
 
-        jQuery.each(sortedKeys, function(keyVal){
+        angular.forEach(sortedKeys, function(keyVal){
             var zd = new Date(0);
-            zd.setTime(parseFloat(sortedKeys[keyVal]))
+            zd.setTime(parseFloat(sortedKeys[keyVal]));
 
-            if (zd.getDate() != oldZd.getDate()){
+            if (zd.getDate() !== oldZd.getDate()){
                 sortedValues[j++] = [parseFloat(sortedKeys[keyVal]), parseFloat(map[sortedKeys[keyVal]] - map[sortedKeys[keyValOld]])];
                 keyValOld = keyVal;
             }
@@ -44,11 +47,10 @@ function ZensUtil() {
         var keyValOld = sortedKeys[0];
         var oldZd = new Date(0);
 
-        jQuery.each(sortedKeys, function(keyVal){
+        angular.forEach(sortedKeys, function(keyVal){
             var zd = new Date(0);
             zd.setTime(parseFloat(sortedKeys[keyVal]));
-            if (zd.getHours() != oldZd.getHours()){
-
+            if (zd.getHours() !== oldZd.getHours()){
                 sortedValues[j++] = [parseFloat(sortedKeys[keyVal]), parseFloat(map[sortedKeys[keyVal]] - map[sortedKeys[keyValOld]])];
                 keyValOld = keyVal;
             }
@@ -57,14 +59,15 @@ function ZensUtil() {
         return sortedValues;
     };
 
-    var orderHashSets = function(hashMap){
+    var orderHashSets = function(hashMap)
+    {
         var sortedKeys = zensSort(hashMap);
         var sortedValues = [];
         var i = 0;
-        jQuery.each(sortedKeys, function(keyVal){
+        angular.forEach(sortedKeys, function(keyVal){
             sortedValues[i++] = [parseFloat(sortedKeys[keyVal]), parseFloat(hashMap[sortedKeys[keyVal]])];
         });
-        return sortedValues
+        return sortedValues;
     };
 
     var zensSort = function(hashMap) {
@@ -99,20 +102,20 @@ function ZensUtil() {
         timeHash.nextMonth = nextMonth.getTime();
         timeHash.firstDayOfMonth = firstDayOfMonth.getTime();
         return timeHash;
-    }
+    };
 
 
     var idCreator = function(domId, suffix){
-        return "#"+domId+suffix
-    }
+        return '#'+domId+suffix;
+    };
 
     var elHandle = function(data){
         return data/1000;
-    }
+    };
 
     var tempHandle = function(data){
-        return parseFloat(data).toFixed(1)
-    }
+        return parseFloat(data).toFixed(1);
+    };
 
     return {
         priceCalculus: priceCalculus,
@@ -124,6 +127,5 @@ function ZensUtil() {
         elHandle: elHandle,
         tempHandle: tempHandle,
         zensTimeHash: zensTimeHash
-    }
-
-};
+    };
+}
