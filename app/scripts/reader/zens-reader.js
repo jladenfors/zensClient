@@ -34,7 +34,7 @@ function ZensReader(util,  $http, plotter, backendUrl) {
         }
     };
 
-    function plotElectric(domId, data){
+    function plotElectric(domId, data){        
         // Plot graf per day
         plotter.plot(
             [util.calculateDelta(parseDataPerHour(data, util.elHandle))],
@@ -42,8 +42,8 @@ function ZensReader(util,  $http, plotter, backendUrl) {
             ["Kw/h"],
             [1, "hour"],
             "%H",
-            util.zensTimeHash.today,
-            util.zensTimeHash.tomorrow,
+            util.zensTimeHash().today,
+            util.zensTimeHash().tomorrow,
             0,
             10,
             "#F999000");
@@ -55,8 +55,8 @@ function ZensReader(util,  $http, plotter, backendUrl) {
             ["Kw/h"],
             [1, "day"],
             "%d",
-            util.zensTimeHash.firstDayOfMonth,
-            util.zensTimeHash.nextMonth,
+            util.zensTimeHash().firstDayOfMonth,
+            util.zensTimeHash().nextMonth,
             40,
             120,
             "#111000");
@@ -93,15 +93,15 @@ function ZensReader(util,  $http, plotter, backendUrl) {
         }
     };
 
-    function plotTemperatureData(domId, data){
+    function plotTemperatureData(domId, data){        
         plotter.plot(
             [util.orderHashSets(parseDataPerHour(data, util.tempHandle))],
             $(util.idCreator(domId, "Day")),
             ["C"],
             [1, "hour"],
             "%H",
-            util.zensTimeHash.today,
-            util.zensTimeHash.tomorrow,
+            util.zensTimeHash().today,
+            util.zensTimeHash().tomorrow,
             10,
             30,
             '#fff000');
@@ -111,8 +111,8 @@ function ZensReader(util,  $http, plotter, backendUrl) {
             ["C"],
             [1, "day"],
             "%d",
-            util.zensTimeHash.today,
-            util.zensTimeHash.tomorrow,
+            util.zensTimeHash().today,
+            util.zensTimeHash().tomorrow,
             10,
             30,
             '#fff000');
@@ -122,10 +122,8 @@ function ZensReader(util,  $http, plotter, backendUrl) {
         data.forEach(
             function (reply, i) {
                 var json = reply;
-                var eventDate = util.zDate(json);
-                if (new Date().getDate() == eventDate.getDate()){
-                    hourHash[eventDate.getTime()] = dataHandle(json.value);
-                }
+                var eventDate = util.zDate(json);                
+                hourHash[eventDate.getTime()] = dataHandle(json.value);                
             }
         );
         return hourHash;
