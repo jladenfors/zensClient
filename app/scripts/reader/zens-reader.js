@@ -3,9 +3,9 @@
  *
  * electric endpoint : getEl
  * electric endpoint : getTemp
- * 
+ *
  * format : {res: [{date: 123414, data: asdfds}, {date: 123414, data: asdfds}]}
- * 
+ *
  * 2012, Jonas
  */
 function ZensReader(util,  $http, plotter, backendUrl) {
@@ -14,7 +14,7 @@ function ZensReader(util,  $http, plotter, backendUrl) {
      * Popluate sensor e1
      * @param domId the dom to plot to, remember that the dom needs to be finished before plotting.
      */
-    var sensor_e1 = function(domId) {        
+    var sensor_e1 = function(domId) {
         if(supports_html5_storage){
             $http.get(backendUrl + "e1").success(function(data){
                 plotElectric(domId, data);
@@ -28,13 +28,13 @@ function ZensReader(util,  $http, plotter, backendUrl) {
                     plotElectric(domId, data);
                 });
             }else{
-                var dataRes = JSON.parse(localStorage.getItem("elData"));                
+                var dataRes = JSON.parse(localStorage.getItem("elData"));
                 plotElectric(domId, dataRes);
             }
         }
     };
 
-    function plotElectric(domId, data){        
+    function plotElectric(domId, data){
         // Plot graf per day
         plotter.plot(
             [util.calculateDelta(parseDataPerHour(data, util.elHandle))],
@@ -48,6 +48,8 @@ function ZensReader(util,  $http, plotter, backendUrl) {
             10,
             "#F999000");
 
+        console.log(util.zensTimeHash().firstDayOfMonth)
+        console.log(util.zensTimeHash().nextMonth)
         // Plot graf per month
         plotter.plot(
             [util.calculateDayDelta(parseDataPerDay(data, util.elHandle))],
@@ -87,13 +89,13 @@ function ZensReader(util,  $http, plotter, backendUrl) {
                     plotTemperatureData(domId, data);
                 });
             }else{
-                var dataRes = JSON.parse(localStorage.getItem("t1Data"));                
+                var dataRes = JSON.parse(localStorage.getItem("t1Data"));
                 plotTemperatureData(domId, dataRes);
             }
         }
     };
 
-    function plotTemperatureData(domId, data){        
+    function plotTemperatureData(domId, data){
         plotter.plot(
             [util.orderHashSets(parseDataPerHour(data, util.tempHandle))],
             $(util.idCreator(domId, "Day")),
@@ -111,8 +113,8 @@ function ZensReader(util,  $http, plotter, backendUrl) {
             ["C"],
             [1, "day"],
             "%d",
-            util.zensTimeHash().today,
-            util.zensTimeHash().tomorrow,
+            util.zensTimeHash().firstDayOfMonth,
+            util.zensTimeHash().nextMonth,
             10,
             30,
             '#fff000');
@@ -122,8 +124,8 @@ function ZensReader(util,  $http, plotter, backendUrl) {
         data.forEach(
             function (reply, i) {
                 var json = reply;
-                var eventDate = util.zDate(json);                
-                hourHash[eventDate.getTime()] = dataHandle(json.value);                
+                var eventDate = util.zDate(json);
+                hourHash[eventDate.getTime()] = dataHandle(json.value);
             }
         );
         return hourHash;
@@ -135,15 +137,13 @@ function ZensReader(util,  $http, plotter, backendUrl) {
             function (reply, i) {
                 var json = reply;
                 var eventDate = util.zDate(json);
-                if (new Date().getMonth() == eventDate.getMonth()) {
-                    dayHash[eventDate.getTime()] = dataHandle(json.value);
-                }
+                dayHash[eventDate.getTime()] = dataHandle(json.value);
             }
         );
         return dayHash;
     };
-    
-    return {        
+
+    return {
         s_e1: sensor_e1,
         s_t1: sensor_t1
     }

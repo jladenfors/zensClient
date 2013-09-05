@@ -29,10 +29,10 @@ function ZensUtil()
 
         angular.forEach(sortedKeys, function(keyVal){
             var zd = new Date(0);
-            zd.setTime(parseFloat(sortedKeys[keyVal]));
+            zd.setTime(parseFloat(keyVal));
 
             if (zd.getDate() !== oldZd.getDate()){
-                sortedValues[j++] = [parseFloat(sortedKeys[keyVal]), parseFloat(map[sortedKeys[keyVal]] - map[sortedKeys[keyValOld]])];
+                sortedValues[j++] = [parseFloat(keyVal), parseFloat(map[keyVal] - map[keyValOld])];
                 keyValOld = keyVal;
             }
             oldZd = zd;
@@ -65,7 +65,7 @@ function ZensUtil()
         var sortedValues = [];
         var i = 0;
         angular.forEach(sortedKeys, function(keyVal){
-            sortedValues[i++] = [parseFloat(sortedKeys[keyVal]), parseFloat(hashMap[sortedKeys[keyVal]])];
+            sortedValues[i++] = [parseFloat(keyVal), parseFloat(hashMap[keyVal])];
         });
         return sortedValues;
     };
