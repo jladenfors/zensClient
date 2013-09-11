@@ -1,7 +1,7 @@
 /**
  * Requires jQuery-flot for plotting
  */
-function ZensPlot(){
+function ZensFlot(){
 
     var plotFunc = function(dataArr, htmlTag, label, tickSize, timeFormat, minX, maxX, minY, maxY, color){
 

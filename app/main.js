@@ -1,16 +1,20 @@
 requirejs.config({
     shim: {
-        'lib/jquery.flot': ['bower_components/jquery/jquery.min'],
-        'scripts/reader/zens-flot': ['lib/jquery.flot'],
-        'scripts/reader/zens-util': [],
-        'scripts/reader/zens-reader': ['scripts/reader/zens-util', 'scripts/reader/zens-flot'],
-        'scripts/controllers/zens-module': ['scripts/controllers/zens-controller', 'scripts/reader/zens-reader'],                
+        'bower_components/angular-local-storage/angular-local-storage': ['bower_components/angular/angular.min'],
+        'bower_components/Flot/jquery.flot.time': ['bower_components/Flot/jquery.flot'],
+        'bower_components/Flot/jquery.flot': ['bower_components/jquery/jquery.min'],
+        'scripts/service/zens-flot': ['bower_components/Flot/jquery.flot.time'],
+        'scripts/service/zens-dao': [],
+        'scripts/service/zens-data-formatter': ['scripts/service/zens-flot-util'],
+        'scripts/service/zens-flot-util': [],
+        'scripts/service/zens-reader': ['scripts/service/zens-flot',  'scripts/service/zens-dao', 'scripts/service/zens-data-formatter'],
+        'scripts/controllers/zens-directive': ['scripts/controllers/zens-controller', 'scripts/service/zens-reader'],                
         'scripts/controllers/zens-controller': ['scripts/init'],        
         'scripts/init': [ 'bower_components/angular/angular.min']
     }
 });
 
-require(['scripts/controllers/zens-module', 'scripts/reader/zens-reader'], 
+require(['scripts/controllers/zens-directive',  'bower_components/angular-local-storage/angular-local-storage', 'scripts/service/zens-reader'], 
     function main() {        
         // Late bootstrap for require to work
         angular.bootstrap(document, ['zens']);

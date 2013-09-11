@@ -1,33 +1,46 @@
-app.factory('zensPlot', function(){
-    return new ZensPlot();
+app.factory('zensFlot', function(){
+    return new ZensFlot();
 });
 
 app.factory('zensUtil', function(){
-    return new ZensUtil();
+    return new ZensFlotUtil();
 });
 
-app.factory('zensGrafs', ['zensUtil', '$http','zensPlot', 'URL', function (zensUtil, http, plot, serverlUri) {    
-    return new ZensReader(zensUtil, http, plot, serverlUri);
-}]);
+app.factory('zensFormatter', ['zensUtil',
+    function(util){
+        return new ZensDataFormatter(util);
+    }]);
+
+app.factory('zensDao', ['$http', 'URL', 'localStorageService',
+    function(http, serverlUri, localStorage) {
+        return new ZensDao( http, serverlUri, localStorage);
+    }]);
+
+app.factory('zensGrafs', ['zensUtil','zensFlot', 'zensDao', 'zensFormatter',
+    function (zensUtil, flot, zensDao, zensFormatter) {
+        return new ZensReader(zensUtil, flot, zensDao, zensFormatter);
+    }
+]);
 
 app.controller('ZensGraf',['$scope', 'zensGrafs', 'ENV',
     function (scope, zens, env) {
         // the dot rule
         scope.parameters = {
-            sensorId: "graphDiv",
+            domIdPrefix: "graphDiv",
             sensorName: "-"
         }
 
         scope.sensors =  {
-            switcher: function(sensorId){
+            plot: function(sensorId){
+                // Set sensor name! 
                 scope.parameters.sensorName = sensorId
                 if (sensorId === 'e1'){
-                    zens.s_e1(scope.parameters.sensorId);
+                    zens.plotElectric(scope.parameters.domIdPrefix);
                 }else if (sensorId=== 't1'){
-                    zens.s_t1(scope.parameters.sensorId);
+                    zens.plotTemperature(scope.parameters.domIdPrefix);
                 }
             }
-        }        
+        }
 
     }
 ]);

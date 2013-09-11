@@ -32,12 +32,13 @@ module.exports = function (grunt) {
     grunt.initConfig({
         ngconstant: {
             options: {
-                space: '  '
+                space: '  ',
+                deps: ['LocalStorageModule']
             },
             // targets
             development: [{
                 dest: '<%= yeoman.app %>/scripts/init.js',
-                wrap: '"use strict";\n\n var app = <%= __ngModule %>',
+                wrap: '"use strict";\n\n //[GENERATED FILE] please dont touch! \nvar app = <%= __ngModule %>',
                 name: 'zens',
                 constants: {
                     ENV: 'development',

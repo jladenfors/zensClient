@@ -1,7 +1,11 @@
-<div class="well sidebar-nav">    
-    <ul class="nav nav-list">                
+<div class="well sidebar-nav">
+    <ul class="nav nav-list">
         <li class="nav-header">Sensors</li>
-        <li id="e1" ng-class="(parameters.sensorName == 'e1') ? 'active' : ''"><a href="#"  ng-click="sensors.switcher('e1')">Electricity</a></li>
-        <li id="t1" ng-class="(parameters.sensorName == 't1') ? 'active' : ''"><a href="#" ng-click="sensors.switcher('t1')">Temperature</a></li>           
+        <li id="e1" ng-class="(parameters.sensorName == 'e1') ? 'active' : ''">
+            <a href="#"  ng-click="sensors.plot('e1')">Electricity</a>
+        </li>
+        <li id="t1" ng-class="(parameters.sensorName == 't1') ? 'active' : ''">
+            <a href="#" ng-click="sensors.plot('t1')">Temperature</a>
+        </li>
     </ul>
 </div>

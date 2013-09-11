@@ -19,7 +19,7 @@ describe('Controller: ZensGraf', function () {
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {      
-    expect(scope.parameters.sensorId).toBe("graphDiv");
+    expect(scope.parameters.domIdPrefix).toBe("graphDiv");
   });
 
     it('get e1 data', function () {
@@ -31,7 +31,7 @@ describe('Controller: ZensGraf', function () {
             }
         }
 
-        expect(scope.sensors.switcher('e1')).toBe("graphDiv");
+        expect(scope.sensors.plot('e1')).toBe("graphDiv");
     });
     
 });

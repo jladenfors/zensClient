@@ -1,6 +1,6 @@
 'use strict';
 
-function ZensUtil()
+function ZensFlotUtil()
 {
     /**
      * Calculate price of day intraday.
@@ -109,13 +109,6 @@ function ZensUtil()
         return '#'+domId+suffix;
     };
 
-    var elHandle = function(data){
-        return data/1000;
-    };
-
-    var tempHandle = function(data){
-        return parseFloat(data).toFixed(1);
-    };
 
     return {
         priceCalculus: priceCalculus,
@@ -124,8 +117,6 @@ function ZensUtil()
         orderHashSets: orderHashSets,
         zDate: zDate,
         idCreator: idCreator,
-        elHandle: elHandle,
-        tempHandle: tempHandle,
         zensTimeHash: zensTimeHash
     };
 }
