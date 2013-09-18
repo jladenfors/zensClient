@@ -18,7 +18,7 @@ function ZensReader(util,  plotter, dao, formatter) {
         var data = dao.getData(domId, "e1");
         var perHour = util.calculateDelta(formatter.perHour(data, formatter.elHandle));
         var perDay = util.calculateDelta(formatter.perDay(data, formatter.elHandle));
-        
+        console.log("e1")
         plotter.plot(
             [perHour],
             $(util.idCreator(domId, "Day")),

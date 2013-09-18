@@ -15,10 +15,15 @@ app.directive('zenshead', function() {
             replace: true
         };
     }).
-    directive('zensgrafs', function() {
+    directive('zensgrafs', function($timeout) {
         return {
             restrict: 'E',
             templateUrl: '/views/partial/grafs.html',
+            link: function(scope, element, attrs) {
+                $timeout( function(){
+                    scope.sensors.plot('e1');
+                }, 100);
+            },
             replace: true
         };
     }).
@@ -28,12 +33,7 @@ app.directive('zenshead', function() {
             transclude: true,
             scope: {
                 sensorName : '@',
-                popluateSensor : '&?',
                 grafId: '@'
-            },
-            link: function(scope, element, attrs) {
-                scope.popluateSensor({sensor: 'e1'});
-
             },
             templateUrl: '/views/partial/graf.html',
             replace: true
